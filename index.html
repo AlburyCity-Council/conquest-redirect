@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html>
 <body>
-<!-- v2 -->
+<!-- v3 -->
 <script>
-  const url = window.location.search.split("?url=")[1];
-  if (url && url.startsWith("conquest://")) {
-      window.location.href = url;
-  }
+  (function () {
+    const search = window.location.search || '';
+    let raw = null;
+
+    // 1) Searches for where C4 link starts
+    if (search.startsWith('?url=')) {
+      raw = search.slice(5);
+    }
+
+    // 2) Fallback for standard query parsing
+    if (!raw) {
+      raw = new URLSearchParams(search).get('url');
+    }
+
+    if (!raw) return;
+
+    // 3) Decode if encoded (safe fallback if not encoded)
+    let target = raw;
+    try {
+      target = decodeURIComponent(raw);
+    } catch (_) {}
+
+    // 4) Validate allowed scheme
+    if (target.startsWith('conquest://')) {
+      window.location.href = target;
+    }
+  })();
 </script>
 </body>
 </html>
