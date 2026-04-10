@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+<!-- v2 -->
+<script>
+  const url = window.location.search.split("?url=")[1];
+  if (url && url.startsWith("conquest://")) {
+      window.location.href = url;
+  }
+</script>
+</body>
+</html>
