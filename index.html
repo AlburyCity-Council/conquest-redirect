@@ -5,7 +5,9 @@
 <p id="fallback" style="font-family: Arial, sans-serif; font-size: 14px; color: #444;">
   Opening Conquest 4 link...
   <br><br>
-  You can close this tab once Conquest 4 has loaded the link. Please ensure you are logged in Conquest 4 before opening links.
+  You can close this tab once Conquest 4 has loaded the link.
+  <br><br>
+  Please ensure you are logged into Conquest 4 before opening links.
 </p>
 
 <script>
@@ -33,7 +35,7 @@
     setTimeout(() => {
       try { window.close(); } catch (_) {}
       try { window.open('', '_self'); window.close(); } catch (_) {}
-    }, 7000);
+    }, 700);
   })();
 </script>
 </body>
