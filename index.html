@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html>
 <body>
-<!-- v4 -->
+<!-- v2 -->
+<p id="fallback" style="font-family: Arial, sans-serif; font-size: 14px; color: #444;">
+  Opening Conquest 4 link...
+  <br><br>
+  You can close this tab once Conquest 4 has loaded the link. Please ensure you are logged in Conquest 4 before opening links.
+</p>
+
 <script>
   (function () {
     const search = window.location.search || '';
-    let raw = search.startsWith('?url=') ? search.slice(5) : new URLSearchParams(search).get('url');
-    if (!raw) return;
+    let raw = search.startsWith('?url=')
+      ? search.slice(5)
+      : new URLSearchParams(search).get('url');
+
+    if (!raw) {
+      document.getElementById('fallback').textContent = 'Invalid link. You can close this tab.';
+      return;
+    }
 
     let target = raw;
     try { target = decodeURIComponent(raw); } catch (_) {}
 
-    if (!target.startsWith('conquest://')) return;
+    if (!target.startsWith('conquest://')) {
+      document.getElementById('fallback').textContent = 'Invalid link type. You can close this tab.';
+      return;
+    }
 
-    // Launch C4 link
     window.location.href = target;
 
-    // Try to auto-close this helper tab
     setTimeout(() => {
       try { window.close(); } catch (_) {}
       try { window.open('', '_self'); window.close(); } catch (_) {}
-    }, 700);
+    }, 7000);
   })();
 </script>
 </body>
